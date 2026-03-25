@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="action-buttons">
+  <a href="{{ url_for('contact.add_contact') }}" class="btn">Add Contact</a>
+  <a href="{{ url_for('transaction.new_transaction') }}" class="btn">Add Transaction</a>
+</div>
+
+<div class="stats">
+  <div class="stat-card">
+    <span class="stat-label">Total I Owe</span>
+    <span class="stat-value">AED {{ total_i_owe[0]['total_sum'] or 0 }}</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-label">Total Owed To Me</span>
+    <span class="stat-value">AED {{ total_owed[0]['total_sum'] or 0 }}</span>
+  </div>
+</div>
+
+<div class="ledgers">
+
+  <div class="ledger">
+    <h2 class="ledger-title">I Owe</h2>
+    {% if i_owe_list %}
+    <table>
+      <thead>
+        <tr>
+          <th>Contact</th>
+          <th>Amount</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in i_owe_list %}
+        <tr>
+          <td>{{ row['name'] }}</td>
+          <td>AED {{ row['amount'] }}</td>
+          <td>
+            <form method="post" action="{{ url_for('transaction.mark_as_paid', id=row['id']) }}" onsubmit="return confirm('Mark as paid?')" style="display:inline">
+              <button type="submit" class="btn-paid">✓</button>
+            </form>
+            <form method="post" action="{{ url_for('transaction.delete_transaction', id=row['id']) }}" onsubmit="return confirm('Delete this transaction?')" style="display:inline">
+              <button type="submit" class="btn-delete">🗑</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="empty">You owe nobody anything. Nice.</p>
+    {% endif %}
+  </div>
+
+  <div class="ledger">
+    <h2 class="ledger-title">They Owe Me</h2>
+    {% if they_owe_list %}
+    <table>
+      <thead>
+        <tr>
+          <th>Contact</th>
+          <th>Amount</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in they_owe_list %}
+        <tr>
+          <td>{{ row['name'] }}</td>
+          <td>AED {{ row['amount'] }}</td>
+          <td>
+            <form method="post" action="{{ url_for('transaction.mark_as_paid', id=row['id']) }}" onsubmit="return confirm('Mark as paid?')" style="display:inline">
+              <button type="submit" class="btn-paid">✓</button>
+            </form>
+            <form method="post" action="{{ url_for('transaction.delete_transaction', id=row['id']) }}" onsubmit="return confirm('Delete this transaction?')" style="display:inline">
+              <button type="submit" class="btn-delete">🗑</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="empty">Nobody owes you anything.</p>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}
