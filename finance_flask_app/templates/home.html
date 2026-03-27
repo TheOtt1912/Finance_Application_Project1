@@ -29,6 +29,7 @@
         <tr>
           <th>Contact</th>
           <th>Amount</th>
+          <th>Date</th>
           <th></th>
         </tr>
       </thead>
@@ -37,6 +38,7 @@
         <tr>
           <td>{{ row['name'] }}</td>
           <td>AED {{ row['amount'] }}</td>
+          <td>{{row['date_of_tx']}}</td>
           <td>
             <form method="post" action="{{ url_for('transaction.mark_as_paid', id=row['id']) }}" onsubmit="return confirm('Mark as paid?')" style="display:inline">
               <button type="submit" class="btn-paid">✓</button>
@@ -62,6 +64,7 @@
         <tr>
           <th>Contact</th>
           <th>Amount</th>
+          <th>Date</th>
           <th></th>
         </tr>
       </thead>
@@ -70,6 +73,7 @@
         <tr>
           <td>{{ row['name'] }}</td>
           <td>AED {{ row['amount'] }}</td>
+          <td>{{row['date_of_tx']}}</td>
           <td>
             <form method="post" action="{{ url_for('transaction.mark_as_paid', id=row['id']) }}" onsubmit="return confirm('Mark as paid?')" style="display:inline">
               <button type="submit" class="btn-paid">✓</button>

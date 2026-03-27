@@ -1,21 +1,20 @@
 from finance_flask_app.db import get_db
 from flask import( 
-    Blueprint, flash, g, redirect, render_template, request, url_for
+    Blueprint, render_template, request
 )
-from werkzeug.exceptions import abort
 
 bp = Blueprint('home',__name__)
 
 @bp.route('/')
 def home():
     db = get_db()
-    i_owe_list = db.execute('''SELECT contacts.name,  owingTransactions.amount, owingTransactions.id
+    i_owe_list = db.execute('''SELECT contacts.name,  owingTransactions.amount, owingTransactions.id, strftime('%d-%m-%Y', owingTransactions.date_of_tx) as date_of_tx
                     FROM owingTransactions
                     JOIN contacts ON contacts.id = owingTransactions.contact_id
                     WHERE owingTransactions.i_owe IS 1 AND owingTransactions.status IS 'not_paid';
                             ''').fetchall()
     
-    they_owe_list = db.execute('''SELECT contacts.name,  owingTransactions.amount, owingTransactions.id
+    they_owe_list = db.execute('''SELECT contacts.name,  owingTransactions.amount, owingTransactions.id, strftime('%d-%m-%Y', owingTransactions.date_of_tx) as date_of_tx
                     FROM owingTransactions
                     JOIN contacts ON contacts.id = owingTransactions.contact_id
                     WHERE owingTransactions.i_owe IS 0 AND owingTransactions.status IS 'not_paid';

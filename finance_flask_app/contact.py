@@ -1,8 +1,7 @@
 from finance_flask_app.db import get_db
 from flask import( 
-    Blueprint, flash, g, redirect, render_template, request, url_for
+    Blueprint, flash, redirect, render_template, request, url_for
 )
-from werkzeug.exceptions import abort
 
 
 bp = Blueprint('contact',__name__,url_prefix=('/contact'))
@@ -33,3 +32,4 @@ def get_contacts():
     contact_list = db.execute('''SELECT id, name FROM contacts''').fetchall()
     
     return contact_list
+

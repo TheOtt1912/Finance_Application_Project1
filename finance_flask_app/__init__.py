@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 
+#The init is the file in which we 'create the app'. As the docs explained, this is the app factory.
 def create_app(test_config=None):
     #create and configure app
     app = Flask(__name__, instance_relative_config=True)

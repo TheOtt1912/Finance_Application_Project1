@@ -1,7 +1,7 @@
 from finance_flask_app.db import get_db
 from finance_flask_app.contact import get_contacts
 from flask import( 
-    Blueprint, flash, g, redirect, render_template, request, url_for
+    Blueprint, flash, redirect, render_template, request, url_for
 )
 
 bp = Blueprint('transaction',__name__,url_prefix='/transaction')

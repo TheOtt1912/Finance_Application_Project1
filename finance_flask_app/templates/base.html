@@ -13,8 +13,8 @@
 <body>
 
   <header>
-    <a href="{{ url_for('home.home') }}" class="header-eyebrow">Owing Ledger</a>
-    <h1 class="header-title">{% block heading %}App{% endblock %}</h1>
+    <a href="{{ url_for('home.home') }}" class="header-eyebrow">Ledger</a>
+    <h1 class="header-title">{% block heading %}{% endblock %}</h1>
     <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">☀ Light</button>
   </header>
 
